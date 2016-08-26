@@ -1,3 +1,13 @@
+/* Atmega 328 - Display module connections 
+ * Digital pin 6 - 1 A
+ * Digital pin 7 - 2 B
+ * Digital pin 8 - 3 C
+ * Digital pin 9 - 4 D
+ * Digital pin 5 acts as selector for 7seg 1 & 2 
+ * Motors connected to Digital Pin 12,13
+ * Bluetooth module(or any other serial device) connected to Rx and Tx
+ * source: https://zxaryo.tk
+ */
 int  q=6,w=7,e=8,r=9,t=5,x=0,y=0,aa=2,b=3,i,sped=0;
 byte a[10][4]={
    {0,0,0,0}

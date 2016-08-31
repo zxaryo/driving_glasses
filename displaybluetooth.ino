@@ -1,4 +1,4 @@
-/*Atmeaga - IC4511 connections 
+/*Atmeaga 328- IC4511 connections 
  * Digital pin 3 - 1
  * Digital pin 4 - 2
  * Digital pin 5 - 7

@@ -1,16 +1,16 @@
-#define t 5
-#define q 6
-#define w 7
-#define e 8
-#define r 9
+#define led_red 3
+#define led_org 2
+#define d0 5
+#define d1 6
+#define d2 7
+#define d3 8
+#define d4 9
+#define motor_a 12
+#define motor_b 13
+
 #include<IRremote.h>
-//#include<Time.h>
-//#include<TimeLib.h>
-int  aa=2,a1=2,b=3,i,counter=0,tim,spp=40;
-long int ml;
-int sped=40,del;
-int bc=0;
-int mdel;
+
+int  spp=40, mdel;
 byte a[10][4]={
    {0,0,0,0}
 ,  {0,0,0,1}
@@ -24,50 +24,48 @@ byte a[10][4]={
 ,  {1,0,0,1}};
 
 int RECV_PIN = 4;
-
 IRrecv irrecv(RECV_PIN);
-
 decode_results results;
 
 void setup() 
 {
- pinMode(a, OUTPUT);
- pinMode(b, OUTPUT);
- pinMode(q, OUTPUT);
- pinMode(w, OUTPUT);
- pinMode(e, OUTPUT);
- pinMode(r, OUTPUT);
- pinMode(t, OUTPUT);
- pinMode(12,OUTPUT);
- pinMode(13,OUTPUT);
+ pinMode(led_org, OUTPUT);
+ pinMode(led_red, OUTPUT);
+ pinMode(d1, OUTPUT);
+ pinMode(d2, OUTPUT);
+ pinMode(d3, OUTPUT);
+ pinMode(d4, OUTPUT);
+ pinMode(d0, OUTPUT);
+ pinMode(motor_a,OUTPUT);
+ pinMode(motor_b,OUTPUT);
  Serial.begin(9600);
  irrecv.enableIRIn();
  //setTime(0);
 }
 void indicator()
-{ for(i=0;i<5;i++)
+{ for(int i=0;i<5;i++)
  {
-  digitalWrite(a1,1);
+  digitalWrite(led_org,1);
   delay(500);
-  digitalWrite(a1,0);
+  digitalWrite(led_org,0);
   delay(500);
  }
-   digitalWrite(b,1);
+   digitalWrite(led_red,1);
    delay(500);
 }
 void ds(int sped)
 {   if(sped>0)
-    digitalWrite(12,1);
-    digitalWrite(13,0);
+    digitalWrite(motor_a,1);
+    digitalWrite(motor_b,0);
     int x=sped%10;
     int y=sped/10;
-    digitalWrite(t,0);
+    digitalWrite(d0,0);
     dd(x);
     delay(4);
-    digitalWrite(t,1);
+    digitalWrite(d0,1);
     dd(y);
     delay(4); 
-    digitalWrite(12,0);
+    digitalWrite(motor_a,0);
     if(sped==60) mdel=4;
     else if(sped==40) mdel==6;
     else if(sped==20) mdel==8;
@@ -89,15 +87,11 @@ int cmap(char zx)
 }
 void dd(int x)
 {
-  digitalWrite(q,a[x][3]);
-  digitalWrite(w,a[x][2]);
-  digitalWrite(e,a[x][1]);
-  digitalWrite(r,a[x][0]);
+  digitalWrite(d1,a[x][3]);
+  digitalWrite(d2,a[x][2]);
+  digitalWrite(d3,a[x][1]);
+  digitalWrite(d4,a[x][0]);
 
-}
-void alert()
-{
-  
 }
 void loop()
 { 

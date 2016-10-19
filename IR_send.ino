@@ -15,9 +15,9 @@ void setup()
   pinMode(led,OUTPUT);
   Serial.begin(9600);
 
-  ind(led,100,2);
-  ind(buz,100,2);
-  irsend.sendSony(0xa92, 12);
+  //ind(led,100,2);
+  //ind(buz,100,2);
+  cal(6);
 }
 void ind(int pin,int del,int tim)
 {
@@ -43,18 +43,21 @@ void cal(int bk)
           irsend.sendSony(0xa92, 12);
           ind(led,50,2);
         }
-        else if(bk<led) 
+        else if(bk<13) 
         {
           irsend.sendSony(0xa93, 12);
-          ind(led,50,3);
+          ind(led,50,1);
         }
+        delay(100);
     }
 }
 void loop() 
 {
-  delay(1000);
+  setTime(0);
+  delay(2000);
   while(second()%15!=0)
       { 
+        k=0;
          if(analogRead(A5)<val)
           ey=0;
          else ey=1;
@@ -66,17 +69,21 @@ void loop()
          }
          iy=ey;
       }
+  Serial.println("____");
+  bks=bks/2;
   if(bks>=14) bks=0;
+  if(bks>0) cal(bks);
+  
   if(bks==0&&k==1)
       {
         for(int j=0; j<500; j++)
         {
          irsend.sendSony(0xa95, 12);
          ind(led,50,1);
-         ind(buz,500,10);
+         ind(buz,500,50);
         }
       }
-      if(bks==0&&k==0)
+  if(bks==0&&k==0)
       {
         k=1;
         ind(led,100,1);
@@ -84,7 +91,5 @@ void loop()
         ind(led,100,1);
         ind(buz,500,1);
       }
-  bks/=2;
-  cal(bks);
   bks=0;
 }
